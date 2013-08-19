@@ -1,0 +1,20 @@
+package com.hungryfox.framework;
+
+public interface Game 
+{
+    public Input getInput();
+
+    public FileIO getFileIO();
+
+    public Graphics getGraphics();
+
+    public Audio getAudio();
+
+    public Parser getParser();
+    
+    public void setScreen(Screen screen);
+
+    public Screen getCurrentScreen();
+
+    public Screen getStartScreen();
+}
