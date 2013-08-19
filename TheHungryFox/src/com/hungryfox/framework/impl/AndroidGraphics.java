@@ -91,7 +91,6 @@ public class AndroidGraphics implements Graphics
     	paint.setColor(color);
 		paint.setTypeface(font);
 		paint.setTextSize(size);
-		//paint.setTextAlign(Paint.Align.CENTER);
 		return new AndroidFont(font);
     }
     
@@ -141,7 +140,7 @@ public class AndroidGraphics implements Graphics
 
     public void drawText(String text, float x, float y)
     {
-    	 canvas.drawText(text, x, y, paint);
+    	canvas.drawText(text, x, y, paint);
     }
     
     public int getWidth() 
@@ -166,6 +165,11 @@ public class AndroidGraphics implements Graphics
     	Rect bound = new Rect();
     	paint.getTextBounds(text, 0, text.length(), bound);
     	return bound.height();
+    }
+    
+    public void changeAlpha(int alpha)
+    {
+    	paint.setAlpha(alpha);
     }
 }
 

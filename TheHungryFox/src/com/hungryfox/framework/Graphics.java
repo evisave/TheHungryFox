@@ -30,5 +30,7 @@ public interface Graphics {
     
     public int getTextWidth(String text);
     public int getTextHeight(String text);
+
+	public void changeAlpha(int alpha);
 }
 

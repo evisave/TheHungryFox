@@ -30,10 +30,10 @@ public class XMLParser implements Parser
 		{
 			pullParserFactory = XmlPullParserFactory.newInstance();
 			XmlPullParser parser = pullParserFactory.newPullParser();
-			    InputStream in_s = asset.open("history.xml");
-		        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-	            parser.setInput(in_s, null);
-	            parseXML(parser);
+			InputStream in_s = asset.open("history.xml");
+			parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+	        parser.setInput(in_s, null);
+	        parseXML(parser);
 		} 
 		catch (XmlPullParserException e)
 		{
@@ -87,7 +87,7 @@ public class XMLParser implements Parser
                 }
                 break;
             }
-            eventType = parser.next();
+            eventType = parser.nextToken();
         }
 	}
 	

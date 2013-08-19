@@ -2,7 +2,7 @@ package com.thehungryfox;
 
 import java.util.List;
 
-import android.util.Log;
+//import android.util.Log;
 
 import com.hungryfox.framework.Game;
 import com.hungryfox.framework.Graphics;
@@ -16,11 +16,12 @@ public class MainScreen extends Screen
 	static final int margin = 20;
 	
 	String text;
-	int x, y, imgX;
+	int x, y, yOff, alphaText, imgX;
 	Graphics g;
 	Pixmap currentPixmap;
 	XMLParser parser;
 	int indexPart = 0;
+	String[] lines;
 	
 	public MainScreen(Game game) 
 	{
@@ -29,6 +30,10 @@ public class MainScreen extends Screen
 		parser = (XMLParser)game.getParser();
 		currentPixmap = Assets.fox;
 		imgX = 100;
+		text = parser.getTextPart(indexPart);
+		lines = text.split("\n");
+		yOff = g.getTextHeight(lines[0]);
+		y = g.getHeight() - yOff - margin;
 	}
 
 	@Override
@@ -49,17 +54,26 @@ public class MainScreen extends Screen
             	}
             	if (indexPart < parser.taleLength() - 1)
             	{
+            		text = "";
+            		lines = null;
+            		alphaText = 0;
             		indexPart++;
-            		Log.d("IndexPart:", " " + indexPart);
+            		text = parser.getTextPart(indexPart);
+            		lines = text.split("\n");
             	}
             	return;
             }
         }
-        
-        text = "";
-		text = parser.getTextPart(indexPart);
-		x = g.getWidth()/2 - g.getTextWidth(text)/2;
-		y = g.getHeight() - g.getTextHeight(text) - margin;
+        if (alphaText < 255)
+        {
+        	alphaText++;
+        	g.changeAlpha(alphaText);
+        }
+        else 
+        {
+        	alphaText = 255;
+        	g.changeAlpha(alphaText);
+        }
 	}
 
 	@Override
@@ -67,7 +81,14 @@ public class MainScreen extends Screen
 	{
 		g.clear(0xffffffff);
 		g.drawPixmap(currentPixmap, imgX, 100);
-		g.drawText(text, x, y);
+		int off = 0;
+        for (int i = 0; i < lines.length; ++i) 
+        {
+        	x = g.getWidth()/2 - g.getTextWidth(lines[i])/2;
+        	g.drawText(lines[i], x, y + off);
+        	off += yOff;
+        }
+		
 	}
 
 	@Override
