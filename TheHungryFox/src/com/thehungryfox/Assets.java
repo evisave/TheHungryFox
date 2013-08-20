@@ -1,6 +1,7 @@
 package com.thehungryfox;
 
-import com.hungryfox.framework.Font;
+import android.graphics.Typeface;
+
 import com.hungryfox.framework.Pixmap;
 
 public class Assets 
@@ -8,7 +9,7 @@ public class Assets
 	public static Pixmap fox;
 	public static Pixmap grapes;
 	
-	public static Font historyFont;
+	public static Typeface historyFont;
 	
 	//public static Sound click;
 }

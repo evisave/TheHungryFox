@@ -13,7 +13,6 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-import com.hungryfox.framework.Font;
 import com.hungryfox.framework.Graphics;
 import com.hungryfox.framework.Pixmap;
 
@@ -21,9 +20,9 @@ public class AndroidGraphics implements Graphics
 {
     AssetManager assets;
     Bitmap frameBuffer;
-    Typeface font;
     Canvas canvas;
     Paint paint;
+    Typeface font;
     Rect srcRect = new Rect();
     Rect dstRect = new Rect();
 
@@ -85,13 +84,18 @@ public class AndroidGraphics implements Graphics
         return new AndroidPixmap(bitmap, format);
     }
 
-    public Font newFont(String fontName, int size, int color)
+    /*public Font newFont(String fontName)
+    {
+		return new AndroidFont(assets, fontName);
+    }*/
+    
+    public Typeface newFont(String fontName, int size, int color)
     {
     	font = Typeface.createFromAsset(assets, fontName);
     	paint.setColor(color);
 		paint.setTypeface(font);
 		paint.setTextSize(size);
-		return new AndroidFont(font);
+		return font;
     }
     
     public void clear(int color) 
@@ -153,21 +157,21 @@ public class AndroidGraphics implements Graphics
         return frameBuffer.getHeight();
     }
     
-    public int getTextWidth(String text)
+    public int getTextWidth(String textLine)
     {
     	Rect bound = new Rect();
-    	paint.getTextBounds(text, 0, text.length(), bound);
+    	paint.getTextBounds(textLine, 0, textLine.length(), bound);
     	return bound.width();
     }
     
-    public int getTextHeight(String text)
+    public int getTextHeight(String textLine)
     {
     	Rect bound = new Rect();
-    	paint.getTextBounds(text, 0, text.length(), bound);
+    	paint.getTextBounds(textLine, 0, textLine.length(), bound);
     	return bound.height();
     }
     
-    public void changeAlpha(int alpha)
+    public void setAlpha(int alpha)
     {
     	paint.setAlpha(alpha);
     }

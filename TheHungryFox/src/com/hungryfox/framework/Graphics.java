@@ -6,8 +6,8 @@ public interface Graphics {
     }
 
     public Pixmap newPixmap(String fileName, PixmapFormat format);
-
-    public Font newFont(String fontName, int size, int Color);
+    
+    //public Font newFont(String fontName);
     
     public void clear(int color);
 
@@ -21,16 +21,15 @@ public interface Graphics {
             int srcWidth, int srcHeight);
 
     public void drawPixmap(Pixmap pixmap, int x, int y);
-
+    
     public void drawText(String text, float x, float y);
     
     public int getWidth();
 
     public int getHeight();
     
-    public int getTextWidth(String text);
-    public int getTextHeight(String text);
-
-	public void changeAlpha(int alpha);
+    public int getTextWidth(String textLine);
+    public int getTextHeight(String textLine);
+    public void setAlpha(int alpha);
 }
 

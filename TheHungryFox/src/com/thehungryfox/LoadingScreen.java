@@ -5,6 +5,7 @@ import com.hungryfox.framework.Game;
 import com.hungryfox.framework.Graphics;
 import com.hungryfox.framework.Screen;
 import com.hungryfox.framework.Graphics.PixmapFormat;
+import com.hungryfox.framework.impl.AndroidGraphics;
 
 public class LoadingScreen extends Screen {
 
@@ -20,7 +21,7 @@ public class LoadingScreen extends Screen {
 		Assets.fox = g.newPixmap("fox.png", PixmapFormat.ARGB4444);
 		Assets.grapes = g.newPixmap("grapes.png", PixmapFormat.ARGB4444);
 		
-		Assets.historyFont = g.newFont("Roboto-Black.ttf", 14, 0xff000000);
+		Assets.historyFont = ((AndroidGraphics) g).newFont("Roboto-Black.ttf", 14, 0xff000000);
 				
 		//Assets.click = game.getAudio().newSound("click.ogg");
 		
