@@ -6,11 +6,12 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-//import android.graphics.Point;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.os.Build.VERSION;
 import android.os.PowerManager.WakeLock;
-//import android.view.Display;
+import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -49,19 +50,22 @@ public abstract class AndroidGame extends Activity implements Game
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
 
-//		@Deprecated.
-		float scaleX = (float) frameBufferWidth
-                / getWindowManager().getDefaultDisplay().getWidth();
-		float scaleY = (float) frameBufferHeight
-                / getWindowManager().getDefaultDisplay().getHeight();
-
-        //  --- Requires Target API 13
-//        Display display = getWindowManager().getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-//        float scaleX = (float) frameBufferWidth / size.x;
-//        float scaleY = (float) frameBufferHeight / size.y;
-        //  -----------------------------
+        float scaleX, scaleY;
+        if(VERSION.SDK_INT > 12)
+        {
+//			From target API 13
+        	Display display = getWindowManager().getDefaultDisplay();
+        	Point size = new Point();
+        	display.getSize(size);
+        	scaleX = (float) frameBufferWidth / size.x;
+        	scaleY = (float) frameBufferHeight / size.y;
+        }
+        else
+        {
+//    		@Deprecated.
+        	scaleX = (float) frameBufferWidth/ getWindowManager().getDefaultDisplay().getWidth();
+        	scaleY = (float) frameBufferHeight/ getWindowManager().getDefaultDisplay().getHeight();
+        }
         
         renderView = new AndroidFastRenderView(this, frameBuffer);
         graphics = new AndroidGraphics(getAssets(), frameBuffer);

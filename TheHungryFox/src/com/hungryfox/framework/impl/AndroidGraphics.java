@@ -142,6 +142,21 @@ public class AndroidGraphics implements Graphics
         canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, null);
     }
 
+    public void drawRegion(Pixmap pixmap, TextureRegion region, int x, int y) 
+    {
+    	srcRect.left = (int)region.u1;
+        srcRect.top = (int)region.v1;
+        srcRect.right = (int)region.u1 + (int)region.u2 - 1;
+        srcRect.bottom = (int)region.v1 + (int)region.v2 - 1;
+        
+        dstRect.left = x;
+        dstRect.top = y;
+        dstRect.right = x + (int)region.u2 - 1;
+        dstRect.bottom = y + (int)region.v2 - 1;
+        
+    	canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, srcRect, dstRect, null);
+    }
+    
     public void drawText(String text, float x, float y)
     {
     	canvas.drawText(text, x, y, paint);

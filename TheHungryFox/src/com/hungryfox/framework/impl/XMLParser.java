@@ -8,15 +8,14 @@ import java.util.Iterator;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
-
 import com.hungryfox.framework.Parser;
-
 import android.content.res.AssetManager;
+
 
 class Part
 {
-	public String ID;
 	public String period;
+	public MyRect touchRect;
 }
 
 public class XMLParser implements Parser
@@ -66,13 +65,18 @@ public class XMLParser implements Parser
                     } 
                     else if (currentPart != null)
                     {
-                        if (name.equalsIgnoreCase("id"))
-                        {
-                        	currentPart.ID = parser.nextText();
-                        } 
-                        else if (name.equalsIgnoreCase("period"))
+                    	if (name.equalsIgnoreCase("period"))
                         {
                         	currentPart.period = parser.nextText();
+                        } 
+                        else if (name.equalsIgnoreCase("rect"))
+                        {
+                        	String[] rectFields = parser.nextText().split(",");
+                        	currentPart.touchRect = new MyRect();
+                        	currentPart.touchRect.width = Integer.parseInt(rectFields[2]);
+                        	currentPart.touchRect.height = Integer.parseInt(rectFields[3]);
+                        	currentPart.touchRect.x = Integer.parseInt(rectFields[0]) - currentPart.touchRect.width/2;
+                        	currentPart.touchRect.y = Integer.parseInt(rectFields[1]) - currentPart.touchRect.height/2; 
                         } 
                     }
                 }
@@ -107,6 +111,12 @@ public class XMLParser implements Parser
 	{
 		Part part = parts.get(index);
 		return part.period;
+	}
+	
+	public MyRect getRectPart(int index)
+	{
+		Part part = parts.get(index);
+		return part.touchRect;
 	}
 
 	public int taleLength()
