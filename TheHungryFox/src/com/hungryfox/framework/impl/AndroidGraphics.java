@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 
 import com.hungryfox.framework.Graphics;
 import com.hungryfox.framework.Pixmap;
+import com.hungryfox.framework.support.TextureRegion;
 
 public class AndroidGraphics implements Graphics
 {

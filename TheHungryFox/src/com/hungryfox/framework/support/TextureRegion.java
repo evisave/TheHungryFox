@@ -1,4 +1,4 @@
-package com.hungryfox.framework.impl;
+package com.hungryfox.framework.support;
 import com.hungryfox.framework.Pixmap;
 
 public class TextureRegion 

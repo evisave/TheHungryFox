@@ -5,38 +5,46 @@
         <!-- <action>touch</action>-->
         <!--<sprite>bg01.png,0,0-fox01.png,240,160</sprite>-->
         <period>A hungry fox</period>
-        <rect>240,160,64,64</rect>
+        <background>bg01.jpg</background>
+        <animation>0,0,32,64;32,0,32,64;64,0,32,64</animation>
+        <rect>240,160,32,64</rect>
     </part>
     <part>
         <!-- <action>multitouch</action>-->
         <!--<sprite>bg02.png,0,0-fox02.png,220,20</sprite>-->
         <period>saw some fine bunches of grapes</period>
-        <rect>400,160,128,128</rect>
+        <background>bg02.jpg</background>
+        <rect>400,160,32,32;320,70,32,32;330,150,32,32</rect>
     </part>
     <part>
         <!-- <action>multitouch</action>-->
         <period>hanging from a vine
 that was trained along a high trellis,</period>
+		<background>bg03.jpg</background>
 		<rect>240,160,64,64</rect>
     </part>
     <part>
         <period>and did his best to reach them by
 jumping as high as he could into the air.</period>
+		<background>bg01.jpg</background>
 		<rect>240,160,64,64</rect>
     </part>
     <part>
         <period>But it was all in vain,
 for they were out to reach:</period>
+		<background>bg02.jpg</background>
 		<rect>240,160,128,128</rect>
     </part>
     <part>
         <period>so he gave up trying and walked away
 with an air of dignity and unconcern, remarking:</period>
+		<background>bg03.jpg</background>
 		<rect>240,160,64,64</rect>
     </part>
     <part>
         <period>"I thought those grapes were ripe,
 but I see now they're quite sour".</period>
+		<background>bg01.jpg</background>
 		<rect>240,160,64,64</rect>
     </part>
 </tale>

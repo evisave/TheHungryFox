@@ -20,8 +20,9 @@ import com.hungryfox.framework.FileIO;
 import com.hungryfox.framework.Game;
 import com.hungryfox.framework.Graphics;
 import com.hungryfox.framework.Input;
-import com.hungryfox.framework.Parser;
+//import com.hungryfox.framework.Parser;
 import com.hungryfox.framework.Screen;
+//import com.hungryfox.framework.support.XMLParser;
 
 public abstract class AndroidGame extends Activity implements Game 
 {
@@ -31,7 +32,7 @@ public abstract class AndroidGame extends Activity implements Game
     Input input;
     FileIO fileIO;
     Screen screen;
-    Parser parser;
+    //Parser parser;
     WakeLock wakeLock;
 
     @SuppressWarnings("deprecation")
@@ -72,7 +73,7 @@ public abstract class AndroidGame extends Activity implements Game
         fileIO = new AndroidFileIO(this);
         audio = new AndroidAudio(this);
         input = new AndroidInput(this, renderView, scaleX, scaleY);
-        parser = new XMLParser(getAssets());
+        //parser = new XMLParser(getAssets());
         screen = getStartScreen();
         setContentView(renderView);
         
@@ -121,10 +122,10 @@ public abstract class AndroidGame extends Activity implements Game
         return audio;
     }
 
-    public Parser getParser() 
+    /*public Parser getParser() 
     {
         return parser;
-    }
+    }*/
     
     public void setScreen(Screen screen) 
     {

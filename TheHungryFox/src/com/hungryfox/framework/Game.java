@@ -10,7 +10,7 @@ public interface Game
 
     public Audio getAudio();
 
-    public Parser getParser();
+    //public Parser getParser();
     
     public void setScreen(Screen screen);
 

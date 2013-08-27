@@ -1,4 +1,5 @@
-package com.hungryfox.framework.impl;
+package com.hungryfox.framework.support;
+
 
 public class Animation 
 {

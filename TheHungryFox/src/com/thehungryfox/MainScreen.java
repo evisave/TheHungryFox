@@ -7,23 +7,27 @@ import com.hungryfox.framework.Graphics;
 import com.hungryfox.framework.Pixmap;
 import com.hungryfox.framework.Screen;
 import com.hungryfox.framework.Input.TouchEvent;
-import com.hungryfox.framework.impl.Animation;
-import com.hungryfox.framework.impl.MyRect;
-import com.hungryfox.framework.impl.TextureRegion;
-import com.hungryfox.framework.impl.XMLParser;
+import com.hungryfox.framework.impl.AndroidGame;
+import com.hungryfox.framework.support.Animation;
+import com.hungryfox.framework.support.FPSCounter;
+import com.hungryfox.framework.support.MyRect;
+import com.hungryfox.framework.support.TextureRegion;
+import com.hungryfox.framework.support.XMLParser;
 
 public class MainScreen extends Screen 
 {
 	static final float margin = 20.0f;
 	static final int maxAlpha = 250;
 	float yOff;
+	TalePart currentPart;
 	//String text, previousTextPart, nextTextPart;
 	TextPart currentTextPart, previousTextPart, nextTextPart;
 	int imgX, imgY;
 	Graphics g;
-	Pixmap currentPixmap;
+	//Pixmap currentBackground;
 	Pixmap spritesheet;
 	XMLParser parser;
+	FPSCounter fps;
 	int taleLength, indexPart = 0;
 	float stateTime = 0.0f;
 	//String[] lines;
@@ -31,9 +35,11 @@ public class MainScreen extends Screen
 	public MainScreen(Game game) 
 	{
 		super(game);
+		fps = new FPSCounter();
 		g = game.getGraphics();
-		parser = (XMLParser)game.getParser();
-		currentPixmap = Assets.bg01;
+		parser = XMLParser.getXMLParser(((AndroidGame) game).getAssets());
+		currentPart = TalePart.getTalePartInstance();
+		//currentBackground = Assets.bg01;
 		spritesheet = Assets.spritesheet;
 		imgX = parser.getRectPart(indexPart).x;
 		imgY = parser.getRectPart(indexPart).y;
@@ -61,10 +67,10 @@ public class MainScreen extends Screen
             {
             	if (inBounds(event, parser.getRectPart(indexPart)))
             	{
-            		if (indexPart == 0)
+            		/*if (indexPart == 0)
                 	{
-                		currentPixmap = Assets.bg02;
-                	}
+                		currentBackground = Assets.bg02;
+                	}*/
             		if (indexPart < taleLength - 1)
             		{
             			previousTextPart.text = currentTextPart.text;
@@ -115,13 +121,38 @@ public class MainScreen extends Screen
 		stateTime += deltaTime;
 		g.clear(0xffffffff);
 		
-		// Draw images.
-		g.drawPixmap(currentPixmap, 0, 0);
+		// Draw background.
+		currentPart.drawBackground(g, indexPart);
 		
-		TextureRegion keyFrame = Assets.foxWait.getKeyFrame(stateTime, Animation.ANIMATION_LOOPING);
-		g.drawPixmap(spritesheet, imgX, imgY, (int)keyFrame.u1, (int)keyFrame.v1, (int)keyFrame.u2, (int)keyFrame.v2);
+		// Draw TextureRegion.
+		//drawTextureregions();
+		
+		// Draw animation.
+		//drawAnimation();
 		
 		// Draw text.
+		//drawText();
+		
+		//g.drawPixmap(currentBackground, 0, 0);
+		if (indexPart == 1)
+		{
+			g.drawPixmap(spritesheet, imgX, imgY, 
+					(int)Assets.grapes01.u1, (int)Assets.grapes01.v1, (int)Assets.grapes01.u2, (int)Assets.grapes01.v2);
+			g.drawPixmap(spritesheet, imgX, imgY, 
+					(int)Assets.grapes02.u1, (int)Assets.grapes02.v1, (int)Assets.grapes02.u2, (int)Assets.grapes02.v2);
+			g.drawPixmap(spritesheet, imgX, imgY, 
+					(int)Assets.grapes03.u1, (int)Assets.grapes03.v1, (int)Assets.grapes03.u2, (int)Assets.grapes03.v2);
+			TextureRegion keyFrame = Assets.foxWait.getKeyFrame(stateTime, Animation.ANIMATION_LOOPING);
+			g.drawPixmap(spritesheet, 125, 125, (int)keyFrame.u1, (int)keyFrame.v1, (int)keyFrame.u2, (int)keyFrame.v2);
+		}
+		else
+		{
+			TextureRegion keyFrame = Assets.foxWait.getKeyFrame(stateTime, Animation.ANIMATION_LOOPING);
+			g.drawPixmap(spritesheet, imgX, imgY, (int)keyFrame.u1, (int)keyFrame.v1, (int)keyFrame.u2, (int)keyFrame.v2);
+		}
+		
+		// Draw text.
+		fps.drawFrame(g);
 		if (previousTextPart.alpha != 0)
 		{
 			int off = 0;

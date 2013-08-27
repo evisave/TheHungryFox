@@ -7,17 +7,17 @@ import com.hungryfox.framework.Screen;
 //import com.hungryfox.framework.Graphics.PixmapFormat;
 import com.hungryfox.framework.impl.AndroidGame;
 //import com.hungryfox.framework.impl.AndroidGraphics;
-import com.hungryfox.framework.impl.XMLParser;
+//import com.hungryfox.framework.support.XMLParser;
 
 public class LoadingScreen extends Screen 
 {
 
-	XMLParser parser;
+	//XMLParser parser;
 	
 	public LoadingScreen(Game game)
 	{
 		super(game);
-		parser = (XMLParser)game.getParser();
+		//parser = (XMLParser)game.getParser();
 	}
 
 	@Override
